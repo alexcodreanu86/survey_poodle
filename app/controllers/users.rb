@@ -27,13 +27,13 @@ end
 get '/user/:id' do
   @user = User.find(session[:user_id])
   @surveys = Survey.where(user_id: current_user?)
-  p @surveys.last.is_public
   redirect to("/") if @user.id != params[:id].to_i
   erb :"user_views/show"
 end
 
 post '/user/new' do
   user = User.new({
+    name: params[:name],
     email: params[:email],
     password: params[:password],
     password_confirmation: params[:password_confirmation]
