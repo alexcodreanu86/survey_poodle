@@ -1,0 +1,68 @@
+<a href="/user/<%= current_user.id %>" class="button">Back</a>
+
+<h1 class="page-title"><%= @survey.title %></h1>
+<div class="row">
+  <div class="large-6 large-offset-3 column">
+    <form action="/surveys/edit/<%= @survey.id %>" method="post">
+      <label for="title">Title: </label>
+      <input type="text" id="title" name="survey[title]" value="<%= @survey.title%>">
+
+      <select id="category" name="survey[category]">
+        <option value="Customer Satisfaction" <%= selected("Customer Satisfaction") %>>Customer Satisfaction</option>
+        <option value="Product" <%= selected("Product") %>>Product</option>
+        <option value="Course" <%= selected("Course") %>>Course</option>
+        <option value="Political" <%= selected("Political") %>>Political</option>
+        <option value="Other" <%= selected("Other") %>>Other</option>
+      </select>
+      <input type="radio" name="survey[is_public]" value="false" <%= is_public?(false) %> >Private<br>
+      <input type="radio" name="survey[is_public]" value="true" <%= is_public?(true) %> >Public<br>
+      <input type="submit" id="survey_submit" value="Edit Survey">
+    </form>
+  </div>
+</div>
+
+<a id="new-question" class="button" href="/question/new_text/<%= @survey.id %>">Add text question</a>
+<a id="new-question" class="button" href="/question/new_multi/<%= @survey.id %>">Add multiple choice</a>
+<div id="new-question-form">
+
+</div>
+
+<ul id="question-list">
+  <% @questions.each do |question| %>
+    <li><%= question.prompt %></li>
+  <% end %>
+</ul>
+
+<form action="/surveys/delete" method="post">
+  <input type="submit" id="delete_submit" value="Delete Survey" class="button alert">
+  <input type="hidden" name="survey_id" value="<%= @survey.id%>">
+</form>
+
+<script>
+$('#new-question').on('click', function(event){
+  event.preventDefault();
+
+  var url = $(this).attr('href');
+
+  $.get(url, function(serverResponse, status, request){
+    // console.log(serverResponse)
+    $('#new-question-form').html(serverResponse);
+  }, "html");
+
+});
+
+$("#new-question-form").on("submit", "#question-form", function(e){
+  e.preventDefault();
+
+  var url = $("#question-form").attr('action');
+  var data = $("#question-form").serialize();
+  console.log(url);
+
+  $.post(url, data, function(serverResponse, status, request){
+    var newQuestion = serverResponse.prompt;
+    console.log(newQuestion)
+    console.log($("#question-list").append("<li>" + newQuestion + "</li>"));
+    $("#new-question-form").empty();
+  }, "json");
+});
+</script>

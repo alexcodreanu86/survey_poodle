@@ -1,0 +1,7 @@
+<h1>New Question</h1>
+<% if @text %>
+  <%= erb :"question_views/forms/_text_question" %>
+<% elsif @multi %>
+  <%= erb :"question_views/forms/_multi_question" %>
+  
+<% end %>

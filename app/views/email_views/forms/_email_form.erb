@@ -1,0 +1,7 @@
+<form action="/email/<%= @survey_id %>" method="post">
+  <label for="emails">Add all emails in the box bellow, separated by commas:</label>
+  <textarea name="emails" id="emails"></textarea>
+  <label for="message">Use the box bellow if you want to include a message in the email:</label>
+  <textarea id="message" name="message">I really want to know your opinion.</textarea>
+  <input type="submit" id="email_submit" class="button" value="Send">
+</form>

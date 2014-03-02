@@ -1,0 +1,11 @@
+<h1 class="page-title">Add Drop Down Options</h1>
+
+<%= erb :"question_views/forms/_choice_form" %>
+
+<ul class="options-list">
+<% @question.options.each do |option| %>
+  <li><%= option.content %></li>
+<% end %>
+</ul>
+
+<a href="/surveys/edit/<%= @question.survey.id%>" class="button">Submit Options</a>

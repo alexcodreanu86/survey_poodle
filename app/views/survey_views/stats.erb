@@ -1,0 +1,14 @@
+<h1 class="page-title"><%= @survey.title %> stats:</h1>
+
+<% @questions.each do |question| %>
+  <p><strong>Question:</strong><p>
+  <p> <%= question.prompt %></p>
+  <p><strong>Answers:</strong></p>
+  <ul>
+    <% question.responses.each do |response| %>
+      <li><%= response.content %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<a href="/user/<%= current_user.id %>" class="button">Back</a>

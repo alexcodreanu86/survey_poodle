@@ -1,0 +1,27 @@
+<nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="/">Survey Poodle</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+  </ul>
+  <section class="top-bar-section">
+    <% if current_user? %>
+      <ul class="left">
+        <li><a href="/surveys/new">Create Survey</a></li>
+        <li><a href="/surveys/index">All Surveys</a></li>
+      </ul>
+
+      <ul class="right">
+        <li><a href="/">Home</a></li>
+        <li><a href="/user/<%= current_user.id %>">Profile</a></li>
+        <li><a href="/user/edit/<%= current_user.id %>">Edit Profile</a></li>
+        <li><a href="/user/signout">Sign Out</a></li>
+      </ul>
+    <% else %>
+      <ul class="right">
+        <li><a href="/user/signin">Sign In</a></li>
+      </ul>
+    <% end %>
+  </section>
+</nav>
